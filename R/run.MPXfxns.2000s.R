@@ -18,8 +18,6 @@ run.MPXfxns.2000s <- function(ii, mpx1b, data1980control,
                               case = 'resample',
                               method = 'matched') {
 
-  mean.vals.2000s <- c()
-
   ## 1. Convert 2007 survey responses to contact frequencies
   tmp <- sample.contact.freq(mpx1b)
 
@@ -35,12 +33,10 @@ run.MPXfxns.2000s <- function(ii, mpx1b, data1980control,
   ## 5. Match age distribution of survey respondents
   age.rows.2000s = age.match(mpx1b, data1980control, method = method)
 
-  mean.vals.2000s = rbind(mean.vals.2000s,
-                          c(mean(total.contacts.top.three$rodent[age.rows.2000s], na.rm=TRUE),
-                            mean(total.contacts.top.three$NHP[age.rows.2000s], na.rm=TRUE),
-                            mean(total.contacts.top.three$antelope[age.rows.2000s], na.rm=TRUE),
-                            mean(total.contacts.top.three$boar[age.rows.2000s], na.rm=TRUE)))
-                            # mean(total.contacts.top.three$squirrel[age.rows.2000s], na.rm=TRUE)))
+  mean.vals.2000s = data.frame(rodent = mean(total.contacts.top.three$rodent[age.rows.2000s], na.rm=TRUE),
+                               NHP = mean(total.contacts.top.three$NHP[age.rows.2000s], na.rm=TRUE),
+                               antelope = mean(total.contacts.top.three$antelope[age.rows.2000s], na.rm=TRUE),
+                               boar = mean(total.contacts.top.three$boar[age.rows.2000s], na.rm=TRUE))
 
   print(ii)
 
