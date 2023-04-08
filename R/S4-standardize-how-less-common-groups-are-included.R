@@ -67,7 +67,9 @@ replicate.1980 <- function(total.contacts.by.group, case = 'resample') {
       total.contacts.top.three[ii,(max.col2+2)] = total.contacts.by.group[ii,(max.col2+2)]
       total.contacts.top.three[ii,(max.col3+2)] = total.contacts.by.group[ii,(max.col3+2)]
 
-      if((total.contacts.by.group[ii,(max.col1+2)]>30) | (total.contacts.by.group[ii,(max.col2+2)]>30) | (total.contacts.by.group[ii,(max.col3+2)]>30)){
+      if((total.contacts.by.group[ii,(max.col1+2)]>30) |
+         (total.contacts.by.group[ii,(max.col2+2)]>30) |
+         (total.contacts.by.group[ii,(max.col3+2)]>30)){
         print(ii)
         break
       }
