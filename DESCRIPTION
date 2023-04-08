@@ -1,0 +1,32 @@
+Package: MPXAnimalContacts
+Type: Package
+Title: MPX Animal Contact Analysis
+Version: 0.1.0
+Authors@R: 
+    c(person(given = "Riley O.", 
+             family = "Mummah", 
+             email = "rmummah@umass.edu", 
+             role = "cre",
+             comment = c(ORCID = "0000-0002-4542-3483")),
+      person(given = "Monique",
+             family = "Ambrose", 
+             email = "moniquea@ucla.edu", 
+             role = "aut",
+             comment = c(ORCID = "0000-0002-2886-7912")),
+      person(given = "James O.", 
+             family = "Lloyd-Smith", 
+             email = "jlloydsmith@ucla.edu", 
+             role = "aut",
+             comment = c(ORCID = "0000-0001-7941-502X")))
+Maintainer: Riley O. Mummah <rmummah@umass.edu>
+Description: The package contains scripts to analyze the 1980s MPX survey and the 2007 MPX survey.
+License: GPL (>=3)
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    EnvStats,
+    stats
+RoxygenNote: 7.2.3
+Roxygen: list(markdown = TRUE)
+Depends: 
+    R (>= 2.10)
