@@ -100,16 +100,19 @@ data1980.calc.contact <- function(i, data1980control, case = 'resample', squirre
           animals.1980s.top.three.control$A3[ii]=='R') {
         animal.col = which(animals.1980s.top.three.control[ii,] == 'R')
         rodent.freqs = c(rodent.freqs, animals.1980s.top.three.control[ii,(animal.col+1)])
-        # Add line just to calculate freq of squirrels
-        if (!is.na(animals.1980s.top.three.control$Squirrel[ii])) {
-          squirrel.freqs = c(squirrel.freqs, animals.1980s.top.three.control[ii,(animal.col+1)])
-          squirrel.top3 = c(squirrel.top3, 1)
-        } else {
-          squirrel.freqs = c(squirrel.freqs, stats::runif(1, 0, animals.1980s.top.three.control[ii,8]))
-          squirrel.top3 = c(squirrel.top3, 0)
-        }
       } else { # if it isn't listed in the top three, use the smallest frequency
         rodent.freqs = c(rodent.freqs, stats::runif(1, 0, animals.1980s.top.three.control[ii,8]))
+      }
+
+      # calculate freq of squirrels
+      if (!is.na(animals.1980s.top.three.control$Squirrel[ii])) {
+        # if squirrel is listed then it takes the rodent frequency
+        animal.col = which(animals.1980s.top.three.control[ii,] == 'R')
+        squirrel.freqs = c(squirrel.freqs, animals.1980s.top.three.control[ii,(animal.col+1)])
+        squirrel.top3 = c(squirrel.top3, 1)
+      } else {
+        squirrel.freqs = c(squirrel.freqs, stats::runif(1, 0, animals.1980s.top.three.control[ii,8]))
+        squirrel.top3 = c(squirrel.top3, 0)
       }
 
       #  check whether any of the top three are NHP
