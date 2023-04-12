@@ -25,6 +25,7 @@ data1980.calc.contact <- function(i, data1980control, case = 'resample', squirre
 
   # try stacking data from each of the tree top animal contacts and seeing frequencies
   rodent.freqs = c()
+  rodent.top3 = c()
   nhp.freqs = c()
   antelope.freqs = c()
   pig.freqs = c()
@@ -41,6 +42,7 @@ data1980.calc.contact <- function(i, data1980control, case = 'resample', squirre
           animals.1980s.top.three.control$A3[ii]=='R') {
         animal.col = which(animals.1980s.top.three.control[ii,] == 'R')
         rodent.freqs = c(rodent.freqs, animals.1980s.top.three.control[ii,(animal.col+1)])
+        rodent.top3 = c(rodent.top3, 1)
         # Add line just to calculate freq of squirrels
         if (!is.na(animals.1980s.top.three.control$Squirrel[ii])) {
           squirrel.freqs = c(squirrel.freqs, animals.1980s.top.three.control[ii,(animal.col+1)])
@@ -51,6 +53,7 @@ data1980.calc.contact <- function(i, data1980control, case = 'resample', squirre
         }
       } else { # if it isn't listed in the top three, set frequency to zero
         rodent.freqs = c(rodent.freqs, 0)
+        rodent.top3 = c(rodent.top3, 0)
       }
 
       #  check whether any of the top three are NHP
@@ -100,8 +103,10 @@ data1980.calc.contact <- function(i, data1980control, case = 'resample', squirre
           animals.1980s.top.three.control$A3[ii]=='R') {
         animal.col = which(animals.1980s.top.three.control[ii,] == 'R')
         rodent.freqs = c(rodent.freqs, animals.1980s.top.three.control[ii,(animal.col+1)])
+        rodent.top3 = c(rodent.top3, 1)
       } else { # if it isn't listed in the top three, use the smallest frequency
         rodent.freqs = c(rodent.freqs, stats::runif(1, 0, animals.1980s.top.three.control[ii,8]))
+        rodent.top3 = c(rodent.top3, 0)
       }
 
       # calculate freq of squirrels
@@ -161,8 +166,10 @@ data1980.calc.contact <- function(i, data1980control, case = 'resample', squirre
                       mean(as.numeric(squirrel.freqs), na.rm=TRUE))
 
   if (squirrel) {
-    return(data.frame(freq = squirrel.freqs,
-                      top3 = squirrel.top3))
+    return(data.frame(sq.freq = squirrel.freqs,
+                      sq.top3 = squirrel.top3,
+                      rod.freq = rodent.freqs,
+                      rod.top3 = rodent.top3))
   } else if(antelope) {
     return(data.frame(freq = antelope.freqs))
   } else if(rodents) {
