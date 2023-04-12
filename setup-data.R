@@ -1,6 +1,7 @@
 library(devtools)
 library(roxygen2)
-library(dplyr)
+library(tidyverse)
+# library(dplyr)
 library(magrittr)
 library(tidyr)
 library(usethis)
@@ -9,7 +10,7 @@ library(usethis)
 
 ## 1) Read in 2000s animal-contact dataset
 # 2007 MPX survey data
-mpx1b = read.csv('~/Dropbox/MPX_2022_QuantifyingTheRisks/data/MPX1b_almostfinal.csv', as.is=TRUE) %>%
+mpx1b = read.csv('MPX1b_almostfinal.csv', as.is=TRUE) %>%
   mutate(F01F04 = dmy(F01F04),
          LastUp = dmy(LastUp),
          approxAge = 2007-F01B01YY) %>%
@@ -28,7 +29,8 @@ mpx1b = read.csv('~/Dropbox/MPX_2022_QuantifyingTheRisks/data/MPX1b_almostfinal.
          cooke_cnegl = Cooke_cnegl, cooke_admouse = Cooke_admouse,
          cooke_duiker = Cooke_duiker, cooke_gamrat = Cooke_gamrat,
          cooke_pang = Cooke_pang, cooke_rat = Cooke_rat,
-         cooke_cat = Cooke_cat, anyloris_cooke = anyloris_Cooke)
+         cooke_cat = Cooke_cat, anyloris_cooke = anyloris_Cooke) %>%
+  filter(!is.na(Huntf_cascan)) # Remove missing values
 
 # Selects NetID, FormID, contact columns, and approxAge
 mpx1b = mpx1b[,c(1,2,178:990,1029)]
@@ -36,7 +38,7 @@ mpx1b = mpx1b[,c(1,2,178:990,1029)]
 usethis::use_data(mpx1b, overwrite = TRUE)
 
 # Import 1980s dataset
-data1980control = read.csv('~/Dropbox/Monique work on animal contacts/1980s animal contact data_controls.csv', as.is=TRUE) %>%
+data1980control = read.csv('1980s animal contact data_controls.csv', as.is=TRUE) %>%
   filter(Type == 'C') %>%
   select(Serum.ID, Age, Anim1, Freq1, Anim2, Freq2, Anim3, Freq3, Squirrel)
 
