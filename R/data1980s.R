@@ -28,6 +28,7 @@ data1980.calc.contact <- function(i, data1980control, case = 'resample', squirre
   rodent.top3 = c()
   nhp.freqs = c()
   antelope.freqs = c()
+  antelope.top3 = c()
   pig.freqs = c()
   squirrel.freqs = c()
   squirrel.top3 = c()
@@ -142,8 +143,10 @@ data1980.calc.contact <- function(i, data1980control, case = 'resample', squirre
           animals.1980s.top.three.control$A3[ii]=='A') {
         animal.col = which(animals.1980s.top.three.control[ii,] == 'A')[1]
         antelope.freqs = c(antelope.freqs, animals.1980s.top.three.control[ii,(animal.col+1)])
+        antelope.top3 = c(antelope.top3, 1)
       } else { # if it isn't listed in the top three, use the smallest frequency
         antelope.freqs = c(antelope.freqs, stats::runif(1, 0, animals.1980s.top.three.control[ii,8]))
+        antelope.top3 = c(antelope.top3, 0)
       }
 
       #  check whether any of the top three are pigs
@@ -171,22 +174,11 @@ data1980.calc.contact <- function(i, data1980control, case = 'resample', squirre
                       rod.freq = rodent.freqs,
                       rod.top3 = rodent.top3))
   } else if(antelope) {
-    return(data.frame(freq = antelope.freqs))
-  } else if(rodents) {
-    return(data.frame(freq = rodent.freqs))
+    return(data.frame(freq = antelope.freqs,
+                      top3 = antelope.top3))
   } else {
     return(mean.vals.1980s)
   }
 
-
-  # sd.vals.1980s = c(sd(as.numeric(rodent.freqs), na.rm=TRUE),
-  #                   sd(as.numeric(nhp.freqs), na.rm=TRUE),
-  #                   sd(as.numeric(antelope.freqs), na.rm=TRUE),
-  #                   sd(as.numeric(pig.freqs), na.rm=TRUE),
-  #                   sd(as.numeric(squirrel.freqs), na.rm = TRUE))
-
-
-  # return(list(mean.vals.1980s = mean.vals.1980s,
-  #             sd.vals.1980s = sd.vals.1980s))
 }
 
